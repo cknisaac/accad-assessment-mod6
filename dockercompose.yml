@@ -1,0 +1,8 @@
+services:
+  app:
+    image: accad6-assessment:latest
+    ports:
+      - ${PORT}:${PORT}
+    env_file:
+      - .env
+
