@@ -1,15 +1,14 @@
-FROM node:20
+FROM python:3.13.5-bullseye
 
 EXPOSE 80
 
 WORKDIR /app
 
-COPY package*.json ./
-RUN npm install
+COPY requirements.txt ./
+
+RUN pip install -r requirements.txt
 
 COPY . .
 
 
-
-ENTRYPOINT ["npm", "run"] 
-CMD ["start"]
+ENTRYPOINT ["python", "app.py"]

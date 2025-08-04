@@ -22,8 +22,8 @@ def home():
 
     class TodoItem(Model):
         class Meta:
-            table_name = "accad6-assessment-db"  # Replace with your table name
-            region = "ap-southeast-1"  # Replace with your AWS region
+            table_name = "accad6-assessment-db"  
+            region = "ap-southeast-1"  
 
         id = UnicodeAttribute(hash_key=True)
         title = UnicodeAttribute()
