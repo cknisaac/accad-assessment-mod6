@@ -2,9 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for
 # You will likely need a database e.g. DynamoDB so you might either boto3 or pynamodb
 # Additional installs here:
 import pynamodb
-#
-#
-
+import pytest
 
 app = Flask(__name__)
 
@@ -24,7 +22,7 @@ def home():
 
     class TodoItem(Model):
         class Meta:
-            table_name = "To-Do List"  # Replace with your table name
+            table_name = "accad6-assessment-db"  # Replace with your table name
             region = "ap-southeast-1"  # Replace with your AWS region
 
         id = UnicodeAttribute(hash_key=True)
