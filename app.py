@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for
 # You will likely need a database e.g. DynamoDB so you might either boto3 or pynamodb
 # Additional installs here:
-#
+import pynamodb
 #
 #
 
@@ -19,7 +19,23 @@ def home():
     # Complete the code below
     # The todo_list variable should be returned by running a scan on your DDB table,
     # which is then converted to a list
-    todo_list = []
+    from pynamodb.models import Model
+    from pynamodb.attributes import UnicodeAttribute, BooleanAttribute
+
+    class TodoItem(Model):
+        class Meta:
+            table_name = "To-Do List"  # Replace with your table name
+            region = "ap-southeast-1"  # Replace with your AWS region
+
+        id = UnicodeAttribute(hash_key=True)
+        title = UnicodeAttribute()
+        completed = BooleanAttribute(default=False)
+
+    
+    try:
+        todo_list = list(TodoItem.scan())
+    except:
+        todo_list = []  
 
     # can leave this line as is to use the template that's provided
     return render_template("base.html", todo_list=todo_list)
