@@ -6,6 +6,7 @@ phases:
       # Log in to Amazon ECR using the AWS CLI
       - aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com
       # Retrieve the Git tag associated with the current commit
+      # wololo
       - GIT_TAG=$(git describe --tags --exact-match || echo "latest")
   build:
     commands:
