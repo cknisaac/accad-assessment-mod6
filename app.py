@@ -20,21 +20,23 @@ class TodoItem(Model):
 
 @app.route("/")
 def home():
-    # Complete the code below
-    # The todo_list variable should be returned by running a scan on your DDB table,
-    # which is then converted to a list
-    
+    query = request.args.get("q")  
     try:
-        todo_list = list(TodoItem.scan())
+        all_items = list(TodoItem.scan())  
     except:
-        todo_list = []  
+        all_items = []
 
-    # can leave this line as is to use the template that's provided
-    return render_template("base.html", todo_list=todo_list)
+    if query:
+        todo_list = [item for item in all_items if query.lower() in item.title.lower()]
+    else:
+        todo_list = all_items
+
+    return render_template("base.html", todo_list=todo_list, search_query=query or "")
+
 
 
 @app.route("/add", methods=["POST"])
-def add():
+def add_func():
     title = request.form.get("title")
     # Complete code below to create a new item in your todo list
     if title:
@@ -46,7 +48,7 @@ def add():
 
 
 @app.route("/update/<todo_id>")
-def update(todo_id):
+def update_func(todo_id):
     update_item = TodoItem.get(todo_id)
     # Complete the code below to update an existing item
     # For this particular app, updating just toggles the completion between True / False
@@ -58,12 +60,25 @@ def update(todo_id):
 
 
 @app.route("/delete/<todo_id>")
-def delete(todo_id):
+def delete_func(todo_id):
     delete_item = TodoItem.get(todo_id)
     # Complete the code below to delete an item from the to-do list
     delete_item.delete()
 
     return redirect(url_for("home"))
+
+# @app.route("/search/<task_name>")
+# def search_func(task_name):
+#     items = list(TodoItem.scan(TodoItem.task_name == task_name))
+#     if items:
+#         return render_template("search_results.html", item=items[0])
+
+# @app.route("/search")
+# def search_func_redirect():
+#     task_name = request.args.get("q")
+#     if task_name:
+#         return redirect(url_for("search_func_redirect", todo_name=task_name))
+#     return redirect(url_for("home"))
 
 if __name__ == "__main__":
     app.run(debug=True)

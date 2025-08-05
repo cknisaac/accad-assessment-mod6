@@ -14,6 +14,11 @@
     <div style="margin-top: 50px;" class="ui container">
         <h1 class="ui center aligned header">Todo Tracker by HIJ</h1>
 
+        <form action="{{ url_for('home') }}" method="get">
+            <input type="text" name="q" placeholder="Search for a task..." value="{{ search_query }}" required>
+            <button class="ui button" type="submit">Search</button>
+        </form>
+
         <form class="ui form" action="/add" method="post">
             <div class="field">
                 <label>What's on your mind?</label>
