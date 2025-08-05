@@ -51,3 +51,7 @@ In app.py, under class TodoItem(Model):
 
 the variables table\_name and region must be set correctly according to your database name and region respectively. The ones provided in the code are mine (Isaac's) :) 
 
+
+
+
+(ignore the downloads folder, oops)
