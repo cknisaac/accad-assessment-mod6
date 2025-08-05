@@ -43,7 +43,8 @@ The web application works by first reading off an existing database. Without cre
 
 
 #### You need to ensure the name of your database is correct in the code
-
+**TO PYTEST, please use the command:
+pytest test/unit/todo_test.py -v
 
 
 In app.py, under class TodoItem(Model):
